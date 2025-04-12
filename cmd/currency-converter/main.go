@@ -16,8 +16,9 @@ func main() {
 	}
 
 	exchangeRateApiKey := os.Getenv("EXCHANGE_RATE_API_KEY")
+	baseUrl := os.Getenv("EXCHANGE_RATE_API_BASE_URL")
 
-	apiClient := api.NewExchangeRateAPIClient(exchangeRateApiKey)
+	apiClient := api.NewExchangeRateAPIClient(exchangeRateApiKey, baseUrl)
 
 	rate, err := apiClient.GetExchangeRate("USD", "EUR")
 	if err != nil {
