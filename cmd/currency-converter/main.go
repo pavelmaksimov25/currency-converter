@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -22,11 +23,18 @@ func main() {
 	apiClient := api.NewExchangeRateAPIClient(exchangeRateApiKey, baseUrl)
 	converterService := converter.NewConverter(apiClient)
 
+	amountPtr := flag.Float64("amount", 1.0, "The amount to convert")
+	basePtr := flag.String("base", "USD", "The base currency code")
+	targetPtr := flag.String("target", "EUR", "The target currency code")
+	flag.Parse()
+
 	convertCriteria := converter.ConvertCriteria{
-		BaseCurrency:   "USD",
-		TargetCurrency: "EUR",
-		Amount:         100,
+		BaseCurrency:   *basePtr,
+		TargetCurrency: *targetPtr,
+		Amount:         *amountPtr,
 	}
+
+	fmt.Printf("Converting %.2f %s to %s...\n", *amountPtr, *basePtr, *targetPtr)
 
 	convertedAmount, err := converterService.Convert(convertCriteria)
 	if err != nil {
