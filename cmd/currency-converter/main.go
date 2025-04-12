@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/pavelmaksimov25/currency-converter/internal/exchangerate/api"
 )
 
 func main() {
@@ -16,5 +17,12 @@ func main() {
 
 	exchangeRateApiKey := os.Getenv("EXCHANGE_RATE_API_KEY")
 
-	fmt.Println("Exchange Rate API Key:", exchangeRateApiKey)
+	apiClient := api.NewExchangeRateAPIClient(exchangeRateApiKey)
+
+	rate, err := apiClient.GetExchangeRate("USD", "EUR")
+	if err != nil {
+		log.Fatalf("Error getting exchange rate: %v", err)
+	}
+
+	fmt.Printf("Exchange rate from USD to EUR: %f\n", rate)
 }
