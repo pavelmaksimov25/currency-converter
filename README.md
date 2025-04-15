@@ -19,7 +19,11 @@ go build -o currency-converter ./cmd/currency-converter/main.go
 ```
 
 ```bash
-./currency-converter -amount 100 -base GBP -target UAH
+./currency-converter
+```
+
+```bash
+curl http://localhost:8080/convert?amount=100&base=USD&target=EUR
 ```
 
 ## TODO 

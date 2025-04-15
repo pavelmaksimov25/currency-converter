@@ -23,7 +23,7 @@ func TestSimpleConverter_Convert_Success(t *testing.T) {
 	mockExchangeRate.On("GetExchangeRate", "USD", "EUR").Return(0.85, nil)
 
 	converter := NewConverter(mockExchangeRate)
-	criteria := ConvertCriteria{
+	criteria := &ConvertCriteria{
 		BaseCurrency:   "USD",
 		TargetCurrency: "EUR",
 		Amount:         100,
@@ -41,7 +41,7 @@ func TestSimpleConverter_Convert_Error(t *testing.T) {
 	mockExchangeRate.On("GetExchangeRate", "USD", "EUR").Return(0.0, errors.New("exchange rate not found"))
 
 	converter := NewConverter(mockExchangeRate)
-	criteria := ConvertCriteria{
+	criteria := &ConvertCriteria{
 		BaseCurrency:   "USD",
 		TargetCurrency: "EUR",
 		Amount:         100,

@@ -11,7 +11,7 @@ type ConvertCriteria struct {
 }
 
 type Converter interface {
-	Convert(convertCriteria ConvertCriteria) (float64, error)
+	Convert(convertCriteria *ConvertCriteria) (float64, error)
 }
 
 type SimpleConverter struct {
@@ -22,7 +22,7 @@ func NewConverter(service exchangerate.ExchangeRate) Converter {
 	return &SimpleConverter{exchangeRate: service}
 }
 
-func (c *SimpleConverter) Convert(convertCriteria ConvertCriteria) (float64, error) {
+func (c *SimpleConverter) Convert(convertCriteria *ConvertCriteria) (float64, error) {
 	rateData, err := c.exchangeRate.GetExchangeRate(convertCriteria.BaseCurrency, convertCriteria.TargetCurrency)
 	if err != nil {
 		return 0, err
